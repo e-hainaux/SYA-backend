@@ -1,6 +1,6 @@
 var express = require("express");
 require("dotenv").config();
-//const expressRecaptcha = require("express-recaptcha"); // Ajout de l'import pour express-recaptcha
+// const expressRecaptcha = require("express-recaptcha"); // Ajout de l'import pour express-recaptcha
 
 var path = require("path");
 var cookieParser = require("cookie-parser");

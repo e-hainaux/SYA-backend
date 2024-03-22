@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
-//const verifyRecaptcha = require("../verifyRecaptcha.mjs"); // Ajout de l'import pour verifyRecaptcha
+const verifyRecaptcha = require("./verifyRecaptcha.js"); // Ajout de l'import pour verifyRecaptcha
 require("dotenv").config();
 
 // Fonction pour envoyer un email
@@ -32,34 +32,34 @@ router.post("/send-email", async (req, res) => {
     req.body;
 
   // **Vérification du token reCAPTCHA**
-  //const isTokenValid = await verifyRecaptcha(token);
+  const isTokenValid = await verifyRecaptcha(token);
 
-  //if (isTokenValid) {
-  // Le token est valide, traiter le formulaire
+  if (isTokenValid) {
+    // Le token est valide, traiter le formulaire
 
-  // Définir les options de l'e-mail
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
-    subject: "SYA YOGA - Nouvelle demande de contact",
-    html: `<p>Nom: ${prenom} ${nom}</p>
+    // Définir les options de l'e-mail
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: "SYA YOGA - Nouvelle demande de contact",
+      html: `<p>Nom: ${prenom} ${nom}</p>
       <p>Société: ${societe}</p>
       <p>Email: ${email}</p>
       <p>Téléphone: ${telephone}</p>
       <p>Commentaire: ${commentaire}</p>`,
-  };
+    };
 
-  // Envoyer l'e-mail
-  try {
-    await sendEmail(mailOptions);
-    res.status(200).json({ message: "Email envoyé avec succès" });
-  } catch (error) {
-    res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
+    // Envoyer l'e-mail
+    try {
+      await sendEmail(mailOptions);
+      res.status(200).json({ message: "Email envoyé avec succès" });
+    } catch (error) {
+      res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
+    }
+  } else {
+    //   Le token est invalide, afficher une erreur
+    res.status(401).json({ error: "Le reCAPTCHA n'est pas valide." });
   }
-  // } else {
-  // Le token est invalide, afficher une erreur
-  // res.status(401).json({ error: "Le reCAPTCHA n'est pas valide." });
-  // }
 });
 
 module.exports = router;

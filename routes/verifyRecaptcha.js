@@ -1,4 +1,5 @@
-import fetch from "node-fetch";
+const express = require("express");
+const fetch = require("node-fetch");
 
 const verifyRecaptcha = async (recaptchaResponse) => {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
@@ -19,7 +20,7 @@ const verifyRecaptcha = async (recaptchaResponse) => {
     const data = await response.json();
     return data.success;
   } catch (error) {
-    console.error("Erreur lors de la vérification reCAPTCHA :", error);
+    console.error("Erreur lors de la vérification reCAPTCHA : ", error);
     return false;
   }
 };
