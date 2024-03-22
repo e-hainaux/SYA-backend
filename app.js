@@ -11,7 +11,11 @@ var formRouter = require("./routes/form");
 var app = express();
 
 const cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://sya-frontend.vercel.app",
+  })
+);
 
 //const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY; // Récupération de la clé secrète reCAPTCHA
 
