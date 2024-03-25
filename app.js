@@ -14,7 +14,6 @@ const cors = require("cors");
 app.use(
   cors({
     origin: "https://sya-frontend.vercel.app",
-    method: "POST",
   })
 );
 
