@@ -13,6 +13,7 @@ var app = express();
 const cors = require("cors");
 app.use(
   cors({
+    header: "Access-Control-Allow-Origin",
     origin: "https://sya-frontend.vercel.app",
   })
 );
