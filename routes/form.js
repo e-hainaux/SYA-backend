@@ -4,6 +4,17 @@ const nodemailer = require("nodemailer");
 const verifyRecaptcha = require("./verifyRecaptcha.js"); // Ajout de l'import pour verifyRecaptcha
 require("dotenv").config();
 
+// Middleware CORS pour définir les en-têtes CORS
+router.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://sya-frontend.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+
 // Fonction pour envoyer un email
 const sendEmail = async (options) => {
   try {
@@ -52,13 +63,7 @@ router.post("/send-email", async (req, res) => {
     // Envoyer l'e-mail
     try {
       await sendEmail(mailOptions);
-      res
-        .status(200)
-        .json({ message: "Email envoyé avec succès" })
-        .setHeader(
-          "Access-Control-Allow-Origin",
-          "https://sya-frontend.vercel.app/"
-        );
+      res.status(200).json({ message: "Email envoyé avec succès" });
     } catch (error) {
       res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
     }
