@@ -57,7 +57,7 @@ router.post("/send-email", async (req, res) => {
         .json({ message: "Email envoyé avec succès" })
         .setHeader(
           "Access-Control-Allow-Origin",
-          "https://sya-frontend.vercel.app"
+          "https://sya-frontend.vercel.app/"
         );
     } catch (error) {
       res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
