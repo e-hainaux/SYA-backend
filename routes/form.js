@@ -5,15 +5,15 @@ const verifyRecaptcha = require("./verifyRecaptcha.js"); // Ajout de l'import po
 require("dotenv").config();
 
 // Middleware CORS pour définir les en-têtes CORS
-router.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://sya-frontend.vercel.app"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+// router.use((req, res, next) => {
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "https://sya-frontend.vercel.app"
+//   );
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// });
 
 // Fonction pour envoyer un email
 const sendEmail = async (options) => {
