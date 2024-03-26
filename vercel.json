@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/backend/routes/*",
+      "source": "/backend/routes/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         {
