@@ -10,15 +10,37 @@ var indexRouter = require("./routes/index");
 var formRouter = require("./routes/form");
 var app = express();
 
-const cors = require("cors");
-app.use(
-  cors({
-    origin: "https://sya-frontend.vercel.app", // Replace with your frontend origin
-    credentials: true, // Allow cookies for authorized requests
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  })
-);
+const cors = require("cors"); // Installation de Cors
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Remplacee 'allowedOrigins' avec vos différents URLs front pouvant accéder au Backend
+    const allowedOrigins = [
+      "http://localhost:3000/",
+      "http://localhost:3001/",
+      "https://sya-frontend.vercel.app/",
+    ];
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
+
+app.use(cors(corsOptions)); // Installation de Cors
+
+// const cors = require("cors");
+// app.use(
+//   cors({
+//     origin: "https://sya-frontend.vercel.app", // Replace with your frontend origin
+//     credentials: true, // Allow cookies for authorized requests
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+//   })
+// );
 
 //const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY; // Récupération de la clé secrète reCAPTCHA
 
